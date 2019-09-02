@@ -36,7 +36,6 @@ class Contracting(nn.Module):
 
         x = self.conv5(x)
 
-        # print(x.size(), x1.size(), x2.size(), x3.size(), x4.size())
         return x, x1, x2, x3, x4
 
 
@@ -60,22 +59,18 @@ class Expanding(nn.Module):
 
     def forward(self, x, x1, x2, x3 ,x4):
         x = self.upsample1(x)
-        # x4 = crop_tensor(x4, x.size()[2])
         x = torch.cat((x4, x), 1)
         x = self.conv_up1(x)
 
         x = self.upsample2(x)
-        # x3 = crop_tensor(x3, x.size()[2])
         x = torch.cat((x3, x), 1)
         x = self.conv_up2(x)
 
         x = self.upsample3(x)
-        # x2 = crop_tensor(x2, x.size()[2])
         x = torch.cat((x2, x), 1)
         x = self.conv_up3(x)
 
         x = self.upsample4(x)
-        # x1 = crop_tensor(x1, x.size()[2])
         x = torch.cat((x1, x), 1)
         x = self.conv_up4(x)
 

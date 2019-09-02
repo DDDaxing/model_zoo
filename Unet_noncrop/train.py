@@ -7,7 +7,6 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 from utils import *
-# from tensorboardX import SummaryWriter
 from torch.utils.tensorboard import SummaryWriter
 
 def train(args, model, device, train_loader, optimizer, epoch):
@@ -64,18 +63,14 @@ def get_args():
                                         help='how many batches to wait before logging training status')    
     parser.add_argument('--save-model', action='store_true', default=False,
                                         help='For Saving the current Model')
-    parser.add_argument('--checkpoint_dir', default='/home/raymondlab/data/Tracy/DDD/Unet/DL/Unet_noncrop/checkpoints/',
+    parser.add_argument('--checkpoint_dir', default='Unet_noncrop/checkpoints/',
                                         help='Checkpoint saving directory')                    
-    parser.add_argument('--tb_dir', default='/home/raymondlab/data/Tracy/DDD/tb/',
+    parser.add_argument('--tb_dir', default='tb/',
                                         help='Tensorboard saving directory')
     args = parser.parse_args()
 
     return args
 
-
-# def checkpoint(epoch, args):
-#     checkpoint_path = args.checkpoint_dir + "model_epoch_{}.pth".format(epoch)
-#     torch.save(model.state_dict(),checkpoint_path)
 
 
 def main():
@@ -90,12 +85,10 @@ def main():
     device = torch.device("cuda" if use_cuda else "cpu")
 
     kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
-
-    # writer = SummaryWriter(args.tb_dir)
     
     # load the training data
-    train_path = '/home/raymondlab/data/Tracy/DDD/dataset/membrane/train/image/'
-    train_target_path = '/home/raymondlab/data/Tracy/DDD/dataset/membrane/train/label/'
+    train_path = '../dataset/train/image/'
+    train_target_path = '../dataset/train/label/'
     load_transform = transforms.Compose([transforms.ToTensor()])
     train_dataset = LocalDataset(train_path, train_target_path,transform=load_transform)
     train_loader = torch.utils.data.DataLoader(

@@ -50,7 +50,6 @@ def im_show(img_list,in_idx):
         
         img = img[1,:,:,:]
         img = img.cpu().detach().numpy()
-        #img = np.array(to_PIL(img))
         img = to_PIL(torch.Tensor(img))
         plt.subplot(121+idx)
         fig = plt.imshow(img, cmap='gray')

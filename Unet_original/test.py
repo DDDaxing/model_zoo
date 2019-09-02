@@ -35,10 +35,6 @@ def test(args, model, device, test_loader):
             pred_bin = (pred > 0.5).float()
             correct += (pred_bin.eq(target_crop.view_as(pred_bin)).sum().item() / (np.size(target_crop.cpu().detach().numpy()))) 
 
-            
-        # torch.save(pred, 'pred_tensor.pt')
-        # torch.save(target_crop, 'target_tensor.pt')
-        # im_show([target_crop, pred],16)
     test_loss /= len(test_loader)
 
     print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
@@ -66,9 +62,9 @@ def get_args():
                         help='how many batches to wait before logging training status')    
     parser.add_argument('--save-model', action='store_true', default=False,
                         help='For Saving the current Model')
-    parser.add_argument('--checkpoint_dir', default='/home/raymondlab/data/Tracy/DDD/checkpoints/',
+    parser.add_argument('--checkpoint_dir', default='checkpoints/',
                         help='Checkpoint saving directory')                    
-    parser.add_argument('--tb_dir', dest='tensorboard', default='/home/raymondlab/data/Tracy/DDD/',
+    parser.add_argument('--tb_dir', dest='tensorboard', default='tb/',
                         help='Tensorboard saving directory')
     args = parser.parse_args()
 
